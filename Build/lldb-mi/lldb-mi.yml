@@ -14,6 +14,11 @@ parameters:
   type: string
   default: Release
 
+- name: LLDB_MI_Branch
+  displayName: lldb-mi Branch
+  type: string
+  default: release/cpptools # TODO: Change to master
+
 - name: Build_Machine
   displayName: Build Machine
   type: string
@@ -33,14 +38,14 @@ variables:
   value: ${{parameters.Architecture}}
 
 - name: llvm_additional_parameters
-  value: "-DLLDB_RELOCATABLE_PYTHON=1 -DLLDB_INCLUDE_TESTS=OFF -DLLDB_BUILD_FRAMEWORK=1"
+  value: "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON -DLLDB_RELOCATABLE_PYTHON=1 -DLLDB_INCLUDE_TESTS=OFF -DLLDB_BUILD_FRAMEWORK=1"
 
   # TODO: fix lldb_mi_repo and lldb_mi_branch (https://github.com/lldb-tools/lldb-mi/pull/37 and https://github.com/lldb-tools/lldb-mi/pull/39)
 - name: lldb_mi_repo
   value: https://github.com/WardenGnaw/lldb-mi  # TODO: Change to lldb-tools
 
 - name: lldb_mi_branch
-  value: release/cpptools # TODO: Change to master
+  value: ${{parameters.LLDB_MI_Branch}}
 
 - name: lldb_mi_additional_parameters
   value: "-DUSE_LLDB_FRAMEWORK=1"
